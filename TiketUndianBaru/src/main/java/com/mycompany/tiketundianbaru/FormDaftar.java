@@ -12,10 +12,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-/**
- * Form untuk mengisi tabel admin di database db_tiketundian lewat Spring dan Hibernate.
- * Form ini tidak menulis SQL. Penyimpanan dan hash password dikerjakan oleh AdminDao.
- */
 public class FormDaftar extends JFrame {
 
     private final JTextField kolomUsername = new JTextField(20);
@@ -81,7 +77,6 @@ public class FormDaftar extends JFrame {
         isi.add(kolom, kanan);
     }
 
-    /** Mengembalikan pesan galat, atau null jika isian sudah benar. */
     static String periksa(String username, String password, String konfirmasi) {
         if (username.isEmpty() || password.isEmpty() || konfirmasi.isEmpty()) {
             return "Semua kolom wajib diisi!";
@@ -138,7 +133,6 @@ public class FormDaftar extends JFrame {
         kolomUsername.requestFocusInWindow();
     }
 
-    /** Dipakai untuk menjalankan form ini sendiri lewat Run File. */
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
             FormDaftar form = new FormDaftar();

@@ -4,11 +4,6 @@ import java.io.File;
 import java.util.List;
 import net.sf.jasperreports.engine.JasperPrint;
 
-/**
- * Program kecil untuk menguji JasperReports tanpa tampilan.
- * Jalankan lewat klik kanan file ini, lalu Run File. Hasilnya tampil di jendela Output NetBeans
- * dan file laporan_admin_uji.pdf dibuat di folder project.
- */
 public class UjiLaporan {
 
     public static void main(String[] args) {

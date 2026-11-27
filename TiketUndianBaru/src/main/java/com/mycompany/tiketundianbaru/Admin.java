@@ -26,6 +26,13 @@ public class Admin {
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
+    /** Peran akun: ADMIN atau USER. Baris lama yang kolom role-nya kosong dianggap ADMIN. */
+    @Column(name = "role", length = 10)
+    private String role;
+
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+
     /** Dibutuhkan Hibernate untuk membuat objek dari baris tabel. */
     public Admin() {
     }
@@ -33,6 +40,24 @@ public class Admin {
     public Admin(String username, String passwordHash) {
         this.username = username;
         this.password = passwordHash;
+    }
+
+    public Admin(String username, String passwordHash, String role) {
+        this(username, passwordHash);
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role == null || role.isBlank() ? ROLE_ADMIN : role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /** Benar jika akun ini admin. Akun USER hanya boleh mengelola peserta dan menjual tiket. */
+    public boolean isAdmin() {
+        return !ROLE_USER.equalsIgnoreCase(getRole());
     }
 
     public Integer getId() {
@@ -61,6 +86,6 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{id=" + id + ", username=" + username + "}";
+        return "Admin{id=" + id + ", username=" + username + ", role=" + getRole() + "}";
     }
 }

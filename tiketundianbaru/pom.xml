@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.ubiblio.tiketundianbaru.Tiketundianbaru</exec.mainClass>
+        <exec.mainClass>com.mycompany.tiketundianbaru.NewJFrame</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -36,7 +36,7 @@
             <artifactId>spring-context</artifactId>
             <version>6.2.12</version>
         </dependency>
-        
+
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>

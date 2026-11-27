@@ -10,6 +10,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * DAO untuk tabel admin dengan gaya Spring.
+ * @Repository menandai kelas ini sebagai lapisan akses data, lalu Spring menerjemahkan galat database
+ * menjadi DataAccessException. @Transactional membuat Spring membuka, menyimpan, atau membatalkan
+ * transaksi sendiri, jadi kode di sini tidak perlu beginTransaction, commit, atau rollback.
+ * EntityManager disuntikkan oleh Spring lewat @PersistenceContext.
+ *
+ * Password disimpan sebagai hash SHA-256 huruf kecil. Hasilnya sama dengan SHA2(x, 256) di MySQL,
+ * jadi akun lama di tabel admin tetap bisa dipakai login.
+ */
 @Repository
 @Transactional
 public class AdminDao {
@@ -17,6 +27,7 @@ public class AdminDao {
     @PersistenceContext
     private EntityManager em;
 
+    /** Mengembalikan Admin jika username dan password cocok, selain itu null. */
     @Transactional(readOnly = true)
     public Admin login(String username, String password) {
         List<Admin> hasil = em
@@ -37,13 +48,20 @@ public class AdminDao {
         return jumlah > 0;
     }
 
+    /** Mengambil semua admin, dipakai untuk tabel di FormLaporan dan sebagai data laporan JasperReports. */
     @Transactional(readOnly = true)
     public List<Admin> semua() {
         return em.createQuery("select a from Admin a order by a.id", Admin.class).getResultList();
     }
 
+    /** Menyimpan akun baru. Jika method ini melempar galat, Spring membatalkan transaksinya. */
     public Admin tambah(String username, String password) {
-        Admin admin = new Admin(username, sha256(password));
+        return tambah(username, password, Admin.ROLE_ADMIN);
+    }
+
+    /** Menyimpan akun baru dengan peran ADMIN atau USER. */
+    public Admin tambah(String username, String password, String role) {
+        Admin admin = new Admin(username, sha256(password), role);
         em.persist(admin);
         return admin;
     }

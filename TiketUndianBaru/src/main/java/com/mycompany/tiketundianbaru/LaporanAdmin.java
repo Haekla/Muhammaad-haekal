@@ -17,21 +17,13 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- * Penghubung antara aplikasi dan JasperReports. Alurnya tiga tahap:
- * 1. compile: file desain laporan (.jrxml) diubah menjadi objek JasperReport.
- * 2. fill: laporan diisi dengan data dari database, hasilnya JasperPrint.
- * 3. export atau view: JasperPrint disimpan sebagai PDF atau ditampilkan di jendela pratinjau.
- */
 public final class LaporanAdmin {
 
-    /** Lokasi desain laporan di dalam folder src/main/resources. */
     private static final String FILE_DESAIN = "/laporan/laporan_admin.jrxml";
 
     private LaporanAdmin() {
     }
 
-    /** Menyusun laporan dari daftar admin. Data diambil lewat AdminDao, bukan lewat SQL di sini. */
     public static JasperPrint susun(List<Admin> data) throws JRException {
         try (InputStream desain = LaporanAdmin.class.getResourceAsStream(FILE_DESAIN)) {
             if (desain == null) {
@@ -50,12 +42,10 @@ public final class LaporanAdmin {
         }
     }
 
-    /** Menyimpan laporan sebagai file PDF. */
     public static void simpanPdf(JasperPrint cetak, File tujuan) throws JRException {
         JasperExportManager.exportReportToPdfFile(cetak, tujuan.getAbsolutePath());
     }
 
-    /** Menampilkan pratinjau laporan. Dari jendela ini laporan juga bisa dicetak atau disimpan. */
     public static void tampilkan(JasperPrint cetak) {
         JasperViewer.viewReport(cetak, false);
     }

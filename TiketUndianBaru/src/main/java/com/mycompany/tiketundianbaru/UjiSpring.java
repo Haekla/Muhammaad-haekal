@@ -1,10 +1,5 @@
 package com.mycompany.tiketundianbaru;
 
-/**
- * Program kecil untuk memastikan Spring, Hibernate, dan MySQL terhubung.
- * Jalankan lewat klik kanan file ini, lalu Run File. Hasilnya tampil di jendela Output NetBeans.
- * Program ini hanya membaca data dan tidak mengubah apa pun.
- */
 public class UjiSpring {
 
     public static void main(String[] args) {
